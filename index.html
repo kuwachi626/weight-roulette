@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>サンプル</title>
+    <!-- <link rel="stylesheet" href="style.css"/> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+</head>
+<body>
+    <div id="roulette">
+	    <span id="number">0</span>kg
+    </div>
+    <div id="stopbtn">
+        <button id="toggleButton">スタート</button>
+    </div>
+</body>
+
+
+<script>
+    let interval;
+    const numberDisplay = document.getElementById("number");
+    const button = document.getElementById("toggleButton");
+
+    // 使用する数字のリスト
+    const numberList = [10, 25, 37, 42, 58, 63, 79, 85, 91];
+
+    button.addEventListener("click", function() {
+        if (button.textContent === "スタート") {
+            button.textContent = "ストップ";
+            interval = setInterval(() => {
+                const randomIndex = Math.floor(Math.random() * numberList.length);
+                numberDisplay.textContent = numberList[randomIndex]; // リスト内の数字を選択
+            }, 100);
+        } else {
+            button.textContent = "スタート";
+            clearInterval(interval); // 数字の変化を停止
+        }
+    });
+</script>
+</html>
