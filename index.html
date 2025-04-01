@@ -19,6 +19,7 @@
 
 <script>
     let interval;
+    let timeout;
     const numberDisplay = document.getElementById("number");
     const button = document.getElementById("toggleButton");
 
@@ -28,13 +29,29 @@
     button.addEventListener("click", function() {
         if (button.textContent === "スタート") {
             button.textContent = "ストップ";
+            let speed = 100; // 初期の変更速度
+            clearTimeout(timeout); // 前の遅延をクリア
             interval = setInterval(() => {
                 const randomIndex = Math.floor(Math.random() * numberList.length);
-                numberDisplay.textContent = numberList[randomIndex]; // リスト内の数字を選択
-            }, 100);
+                numberDisplay.textContent = numberList[randomIndex];
+            }, speed);
         } else {
             button.textContent = "スタート";
-            clearInterval(interval); // 数字の変化を停止
+            clearInterval(interval);
+
+            // 徐々に遅くしながら最終的に確定
+            let speed = 100;
+            function slowDown() {
+                if (speed < 1000) {
+                    speed += 200; // だんだん遅くする
+                    timeout = setTimeout(() => {
+                        const randomIndex = Math.floor(Math.random() * numberList.length);
+                        numberDisplay.textContent = numberList[randomIndex];
+                        slowDown(); // 次の遅延呼び出し
+                    }, speed);
+                }
+            }
+            slowDown();
         }
     });
 </script>
