@@ -1,0 +1,94 @@
+$off_white:   #F8FAFF;
+$bright_pink: #F4157E;
+$dull_pink:   #CD106E;
+
+// =========
+// Codepen Setup
+// =========
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  background: $off_white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+  -webkit-font-kerning: normal;
+  -webkit-text-size-adjust: 100%;
+}
+
+// ===============
+// Relative parent
+// ===============
+.Button-wrapper {
+  position: relative;
+}
+
+// ===========
+// The button!
+// ===========
+.Button {
+  font-family: "Gilroy ExtraBold", system-ui, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: 2px;
+  font-size: 22px;
+  line-height: 68px;
+  text-transform: uppercase;
+  background: $bright_pink;
+  color: $off_white;
+  appearance: none;
+  border: none;
+  border-radius: 10px;
+  min-width: 200px;
+  padding: 0 24px;
+  box-shadow: 0 10px 60px -10px $dull_pink;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  user-select:none;
+  transform-style: preserve-3d;
+  transform: perspective(250px) scale3d(1,1,1);
+  transition: all 1s cubic-bezier(0.03,0.98,0.52,0.99);
+  will-change: transform, box-shadow, background;
+  outline: none;
+  position: relative;
+  z-index:2;
+  
+  &:hover {
+    background: lighten($bright_pink, 2%);
+    box-shadow: 0 8px 65px -5px $dull_pink;
+  }
+  
+  &:active {
+    background: $dull_pink;  
+    box-shadow: 0 10px 60px -10px $dull_pink;
+    transform: perspective(250px) scale3d(1, 1, 1) translateY(5%) !important;
+  }
+}
+
+// ===========
+// SVG symbols
+// ===========
+.Symbol {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  z-index: -1;
+  animation: explode .8s reverse forwards ease-in;
+}
+
+// =========
+// Animation
+// =========
+@keyframes explode {
+  from { opacity: 0; }
+  to {
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+  }
+}

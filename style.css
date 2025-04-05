@@ -1,0 +1,110 @@
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+body {
+  background: #F8FAFF;
+  align-items: center;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+  -webkit-font-kerning: normal;
+  -webkit-text-size-adjust: 100%;
+  margin: 0;
+}
+
+.Button-wrapper {
+  position: relative;
+  margin-top: 50px;
+}
+
+.Button {
+  font-family: "Gilroy ExtraBold", system-ui, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 50px;
+  line-height: 110px;
+  text-transform: uppercase;
+  background: #F4157E;
+  color: #F8FAFF;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: none;
+  border-radius: 10px;
+  min-width: 350px;
+  padding: 0 24px;
+  box-shadow: 0 10px 60px -10px #CD106E;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  transform-style: preserve-3d;
+  transform: perspective(250px) scale3d(1, 1, 1);
+  transition: all 1s cubic-bezier(0.03, 0.98, 0.52, 0.99);
+  will-change: transform, box-shadow, background;
+  outline: none;
+  position: relative;
+  z-index: 2;
+}
+.Button:hover {
+  background: #f41f83;
+  box-shadow: 0 8px 65px -5px #CD106E;
+}
+.Button:active {
+  background: #CD106E;
+  box-shadow: 0 10px 60px -10px #CD106E;
+  transform: perspective(250px) scale3d(1, 1, 1) translateY(5%) !important;
+}
+
+.Symbol {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  z-index: -1;
+  animation: explode 0.8s reverse forwards ease-in;
+}
+
+#backImg {
+  z-index: -999;
+  position: fixed;
+}
+
+#wave {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.waveSvg {
+  height: 100vh;
+  width: 100vw;
+  margin-top: 250px;
+}
+
+#fishImg {
+  z-index: -900;
+  position: fixed;
+  top: 519px;
+  left: 67px;
+}
+
+#fishImg img {
+  width: 100px;
+}
+
+@keyframes explode {
+  from {
+    opacity: 0;
+  }
+  to {
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+  }
+}/*# sourceMappingURL=style.css.map */

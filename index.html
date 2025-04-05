@@ -4,10 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>サンプル</title>
-    <!-- <link rel="stylesheet" href="style.css"/> -->
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+    <link rel="stylesheet" href="style.css"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
 </head>
 <body>
+    <div id="fishImg">
+        <img src="./img/fish_karei.png">
+    </div>
+    <div id="backImg">
+        <svg class="waveSvg" version="1.1" xmlns="http://www.w3.org/2000/svg"><path id="wave" d=""/></svg>
+    </div>
     <div id="tytle">
 	    <h1>おさかなピッタン！</h1>
     </div>
@@ -17,10 +24,11 @@
         }
         h1 {
             font-size: 100px;
+            margin: 10px 0;
         }
     </style>
     <div id="roulette">
-	    <h2><span id="number">0</span>kg</h2>
+	    <h2><span id="number">???</span>kg</h2>
     </div>
     <style>
         #roulette {
@@ -31,56 +39,48 @@
         }
 
         h2 {
-            font-size: 100px;
+            font-size: 260px;
+            margin: 0 0;
         }
     </style>
-    <div id="stopbtn">
-        <button id="toggleButton">スタート</button>
+    <div id="stopbtn" class="Button-wrapper">
+        <button id="toggleButton" class="Button">スタート</button>
     </div>
     <style>
         #stopbtn {
             text-align: center;
         }
     </style>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="donut" viewBox="0 0 14 14">
+          <path fill="#F4157E" fill-rule="nonzero" d="M7 12c2.76 0 5-2.24 5-5S9.76 2 7 2 2 4.24 2 7s2.24 5 5 5zm0 2c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
+        </symbol>
+        
+        <symbol id="circle" viewBox="0 0 10 10">
+          <circle cx="5" cy="5" r="5" fill="#F4157E" fill-rule="evenodd"/>
+        </symbol>
+        
+        <symbol id="tri_hollow" viewBox="0 0 12 11">
+          <path fill="#F4157E" fill-rule="nonzero" d="M3.4 8.96h5.2L6 4.2 3.4 8.95zM6 0l6 11H0L6 0z"/>
+        </symbol>
+        
+        <symbol id="triangle" viewBox="0 0 10 9">
+          <path fill="#F4157E" fill-rule="evenodd" d="M5 0l5 9H0"/>
+        </symbol>
+        
+        <symbol id="square" viewBox="0 0 8 8">
+          <path fill="#F4157E" fill-rule="evenodd" d="M0 0h8v8H0z"/>
+        </symbol>
+        
+        <symbol id="squ_hollow" viewBox="0 0 8 8">
+          <path fill="#F4157E" fill-rule="nonzero" d="M1.5 1.5v5h5v-5h-5zM0 0h8v8H0V0z"/>
+        </symbol>
+      </svg>
+      
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
+      <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/85188/jquery.wavify.js"></script>
 </body>
-
-
-<script>
-    let interval;
-    let timeout;
-    const numberDisplay = document.getElementById("number");
-    const button = document.getElementById("toggleButton");
-
-    // 使用する数字のリスト
-    const numberList = [10, 25, 37, 42, 58, 63, 79, 85, 91];
-
-    button.addEventListener("click", function() {
-        if (button.textContent === "スタート") {
-            button.textContent = "ストップ";
-            let speed = 100; // 初期の変更速度
-            clearTimeout(timeout); // 前の遅延をクリア
-            interval = setInterval(() => {
-                const randomIndex = Math.floor(Math.random() * numberList.length);
-                numberDisplay.textContent = numberList[randomIndex];
-            }, speed);
-        } else {
-            button.textContent = "スタート";
-            clearInterval(interval);
-
-            // 徐々に遅くしながら最終的に確定
-            let speed = 100;
-            function slowDown() {
-                if (speed < 1000) {
-                    speed += 200; // だんだん遅くする
-                    timeout = setTimeout(() => {
-                        const randomIndex = Math.floor(Math.random() * numberList.length);
-                        numberDisplay.textContent = numberList[randomIndex];
-                        slowDown(); // 次の遅延呼び出し
-                    }, speed);
-                }
-            }
-            slowDown();
-        }
-    });
-</script>
+<script src="main.js"></script>
 </html>
