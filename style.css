@@ -103,11 +103,12 @@ right p {
   margin-top: 250px;
 }
 
-#fishImg {
+.fish1 {
   z-index: -900;
   position: fixed;
   top: 519px;
-  left: 67px;
+  left: -200px;
+  animation: swim 20s linear infinite;
 }
 
 #fishImg img {
@@ -124,3 +125,12 @@ right p {
     opacity: 1;
   }
 }/*# sourceMappingURL=style.css.map */
+
+@keyframes swim {
+  0% {
+    left: -200px;
+  }
+  100% {
+    left: 100%;
+  }
+}
