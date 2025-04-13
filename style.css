@@ -103,12 +103,26 @@ right p {
   margin-top: 250px;
 }
 
-.fish1 {
+.karei {
   z-index: -900;
   position: fixed;
   top: 519px;
   left: -200px;
   animation: swim 20s linear infinite;
+}
+
+.konbu {
+  z-index: -900;
+  position: fixed;
+  bottom: -20px;
+  right: 150px;
+}
+
+.wakame {
+  z-index: -900;
+  position: fixed;
+  bottom: -20px;
+  right: 30px;
 }
 
 #fishImg img {
