@@ -2,9 +2,9 @@ let interval;
 let timeout;
 const numberDisplay = document.getElementById("number");
 const button = document.getElementById("toggleButton");
+let randomIndex;
+let count = 1;
 
-// 使用する数字のリスト
-const numberList = [1.00, 1.25, 1.50, 1.75, 2.00, 2.25, 2.50, 2.75, 3.00];
 
 button.addEventListener("click", function(e) {
   explode(e.pageX, e.pageY);
@@ -13,8 +13,8 @@ button.addEventListener("click", function(e) {
         let speed = 100; // 初期の変更速度
         clearTimeout(timeout); // 前の遅延をクリア
         interval = setInterval(() => {
-            const randomIndex = Math.floor(Math.random() * numberList.length);
-            numberDisplay.textContent = numberList[randomIndex];
+          const randomIndex = getRandomStepValue(1.5, 3.0, 0.1);
+          numberDisplay.textContent = randomIndex;
         }, speed);
     } else {
         button.style.display = 'none';
@@ -27,12 +27,19 @@ button.addEventListener("click", function(e) {
             if (speed < 1000) {
                 speed += 200; // だんだん遅くする
                 timeout = setTimeout(() => {
-                    const randomIndex = Math.floor(Math.random() * numberList.length);
-                    numberDisplay.textContent = numberList[randomIndex];
+                    randomIndex = getRandomStepValue(1.5, 3.0, 0.1);
+                    numberDisplay.textContent = randomIndex;
                     slowDown(); // 次の遅延呼び出し
                 }, speed);
             } else {
               button.style.display = 'inline';
+              const namHistory = document.getElementById("history");
+              let nam = document.createElement("p");
+              nam.innerText = count + "回目：" + randomIndex + "kg";
+              namHistory.appendChild(nam)
+              count++;
+
+              namHistory.scrollTop = namHistory.scrollHeight;
             }
         }
         slowDown();
@@ -44,6 +51,13 @@ button.addEventListener("click", function(e) {
 //     console.log("a");
 //   explode(e.pageX, e.pageY);
 // });
+
+function getRandomStepValue(min, max, step) {
+  const steps = Math.floor((max - min) / step) + 1;
+  const randomStep = Math.floor(Math.random() * steps);
+  const value = min + (randomStep * step);
+  return parseFloat(value.toFixed(1))
+}
 
 document.addEventListener("touchstart", function(){}, true);
 
