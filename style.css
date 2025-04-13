@@ -16,7 +16,7 @@ body {
   grid-template-columns: 90% 10%;
 }
 
-right {
+main, right {
   height: 100%;
 }
 
