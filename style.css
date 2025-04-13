@@ -106,9 +106,25 @@ right p {
 .karei {
   z-index: -900;
   position: fixed;
-  top: 519px;
+  bottom: 100px;
   left: -200px;
-  animation: swim 20s linear infinite;
+  animation: swimL 30s linear infinite, float 2s ease-in-out infinite;
+}
+
+.saba {
+  z-index: -900;
+  position: fixed;
+  top: 519px;
+  right: -200px;
+  animation: swimR 20s linear infinite, float 2s ease-in-out infinite;
+}
+
+.kani {
+  z-index: -900;
+  position: fixed;
+  bottom: -20px;
+  right: 0px;
+  animation: swimKani 20s linear infinite;
 }
 
 .konbu {
@@ -140,7 +156,7 @@ right p {
   }
 }/*# sourceMappingURL=style.css.map */
 
-@keyframes swim {
+@keyframes swimL {
   0% {
     left: -200px;
   }
@@ -148,3 +164,34 @@ right p {
     left: 100%;
   }
 }
+
+@keyframes swimR {
+  0% {
+    right: -200px;
+  }
+  100% {
+    right: 100%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes swimKani {
+  0% {
+    right: 0;
+  }
+  50% {
+    right: calc(30% - 150px);
+  }
+  100% {
+    right: 0;
+  }
+}
+
