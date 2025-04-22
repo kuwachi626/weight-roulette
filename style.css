@@ -12,8 +12,8 @@ body {
   -webkit-font-kerning: normal;
   -webkit-text-size-adjust: 100%;
   margin: 0;
-  display: grid;
-  grid-template-columns: 90% 10%;
+  /* display: grid;
+  grid-template-columns: 90% 10%; */
 }
 
 main, right {
@@ -100,7 +100,7 @@ right p {
 .waveSvg {
   height: 100vh;
   width: 100vw;
-  margin-top: 250px;
+  margin-top: 388px;
 }
 
 .karei {
@@ -142,7 +142,21 @@ right p {
 }
 
 #fishImg img {
-  width: 100px;
+  width: 180px;
+}
+
+.image-container {
+  transform: scale(0.5) translateZ(-200px);
+  transition: transform 3s ease-out;
+  z-index: -1000;
+  position: fixed;
+  bottom: 250px;
+  left: 50%;
+}
+
+.image-container.active {
+  transform: scale(6) translateZ(0);
+  z-index: -500;
 }
 
 @keyframes explode {

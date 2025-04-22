@@ -9,6 +9,7 @@ let count = 1;
 button.addEventListener("click", function(e) {
   explode(e.pageX, e.pageY);
     if (button.textContent === "スタート") {
+        removeImage()
         button.textContent = "ストップ";
         let speed = 100; // 初期の変更速度
         clearTimeout(timeout); // 前の遅延をクリア
@@ -34,10 +35,13 @@ button.addEventListener("click", function(e) {
             } else {
               button.style.display = 'inline';
               const namHistory = document.getElementById("history");
-              let nam = document.createElement("p");
-              nam.innerText = count + "回目：" + randomIndex + "kg";
-              namHistory.appendChild(nam)
-              count++;
+              // let nam = document.createElement("p");
+              // nam.innerText = count + "回目：" + randomIndex + "kg";
+              // namHistory.appendChild(nam)
+              // count++;
+              if (Number(randomIndex) * 10 % 6 == 0){
+                addImage()
+              }
 
               namHistory.scrollTop = namHistory.scrollHeight;
             }
@@ -113,3 +117,16 @@ $('#wave').wavify({
   speed: .25
 });
 
+function addImage() {
+  const imageBox = document.getElementById('imageBox');
+  imageBox.classList.add('active');
+  imageBox.style.transition = '';
+}
+
+function removeImage() {
+  const imageBox = document.getElementById('imageBox');
+  if (imageBox.classList.contains('active')) {
+    imageBox.classList.remove('active');
+    imageBox.style.transition = 'none';
+  }
+}
