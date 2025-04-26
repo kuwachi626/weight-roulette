@@ -3,10 +3,13 @@ let timeout;
 const numberDisplay = document.getElementById("number");
 const button = document.getElementById("toggleButton");
 let randomIndex;
-let count = 1;
+let count = 0;
+const dbName = "weightDB";
+const storeName = "weightCount";
 
 
-button.addEventListener("click", function(e) {
+button.addEventListener("click", async function(e) {
+  const db = await openDatabase();
   explode(e.pageX, e.pageY);
     if (button.textContent === "スタート") {
         removeImage()
@@ -34,16 +37,15 @@ button.addEventListener("click", function(e) {
                 }, speed);
             } else {
               button.style.display = 'inline';
-              const namHistory = document.getElementById("history");
-              // let nam = document.createElement("p");
-              // nam.innerText = count + "回目：" + randomIndex + "kg";
-              // namHistory.appendChild(nam)
-              // count++;
+              // const namHistory = document.getElementById("history");
+
+              count++;
+              saveWeight(db, count, randomIndex);
               if (Number(randomIndex) * 10 % 6 == 0){
                 addImage()
               }
 
-              namHistory.scrollTop = namHistory.scrollHeight;
+              // namHistory.scrollTop = namHistory.scrollHeight;
             }
         }
         slowDown();
@@ -129,4 +131,44 @@ function removeImage() {
     imageBox.classList.remove('active');
     imageBox.style.transition = 'none';
   }
+}
+
+function openDatabase() {
+  return new Promise((resolve, reject) => {
+      const request = indexedDB.open(dbName, 1);
+      request.onupgradeneeded = (event) => {
+          const db = event.target.result;
+          db.createObjectStore(storeName, { keyPath: 'id' }); // keyPathを'id'に設定
+      };
+      request.onsuccess = (event) => {
+          resolve(event.target.result);
+      };
+      request.onerror = (event) => {
+          reject(event.target.error);
+      };
+  });
+}
+
+// IndexedDBにデータを保存
+function saveWeight(db, count, weight) {
+  return new Promise((resolve, reject) => {
+      const transaction = db.transaction([storeName], 'readwrite');
+      const store = transaction.objectStore(storeName);
+      const data = { id: getTodayDateString(), count: count, weight: weight};
+      const request = store.put(data);
+      request.onsuccess = () => {
+          resolve(request.result);
+      };
+      request.onerror = (event) => {
+          reject(event.target.error);
+      };
+  });
+}
+
+function getTodayDateString() {
+  const today = new Date();
+  const hour = String(today.getHours()).padStart(2, '0');
+  const minute = String(today.getMinutes()).padStart(2, '0');
+  const secound = String(today.getSeconds()).padStart(2, '0');
+  return `${hour}:${minute}:${secound}`;
 }
