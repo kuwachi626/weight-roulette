@@ -6,12 +6,15 @@ let randomIndex;
 let count = 0;
 const dbName = "weightDB";
 const storeName = "weightCount";
+let rotatingAudio;
 
 
 button.addEventListener("click", async function(e) {
   const db = await openDatabase();
   explode(e.pageX, e.pageY);
     if (button.textContent === "スタート") {
+        rotatingAudio = new Audio("mp3/Rotating.mp3");
+        rotatingAudio.play();
         removeImage()
         button.textContent = "ストップ";
         let speed = 100; // 初期の変更速度
@@ -21,6 +24,12 @@ button.addEventListener("click", async function(e) {
           numberDisplay.textContent = randomIndex;
         }, speed);
     } else {
+        if (rotatingAudio) {
+          rotatingAudio.pause();
+          rotatingAudio.currentTime = 0;
+        }
+        const stopAudio = new Audio("mp3/Stop.mp3");
+        stopAudio.play();
         button.style.display = 'none';
         button.textContent = "スタート";
         clearInterval(interval);
@@ -29,6 +38,8 @@ button.addEventListener("click", async function(e) {
         let speed = 100;
         function slowDown() {
             if (speed < 1000) {
+              const slowlyAudio = new Audio("mp3/Slowly.mp3");
+              slowlyAudio.play();
                 speed += 200; // だんだん遅くする
                 timeout = setTimeout(() => {
                     randomIndex = getRandomStepValue(1.5, 3.0, 0.1);
@@ -41,8 +52,16 @@ button.addEventListener("click", async function(e) {
 
               count++;
               saveWeight(db, count, randomIndex);
+              const confirmedAudio = new Audio("mp3/Confirmed.mp3");
+              confirmedAudio.play();
               if (Number(randomIndex) * 10 % 6 == 0){
+                if (confirmedAudio) {
+                  confirmedAudio.pause();
+                  confirmedAudio.currentTime = 0;
+                }
                 addImage()
+                const spAudio = new Audio("mp3/Special.mp3");
+                spAudio.play();
               }
 
               // namHistory.scrollTop = namHistory.scrollHeight;
