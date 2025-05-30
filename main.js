@@ -14,6 +14,7 @@ button.addEventListener("click", async function(e) {
   explode(e.pageX, e.pageY);
     if (button.textContent === "スタート") {
         rotatingAudio = new Audio("mp3/Rotating.mp3");
+        rotatingAudio.loop = true;
         rotatingAudio.play();
         removeImage()
         button.textContent = "ストップ";
